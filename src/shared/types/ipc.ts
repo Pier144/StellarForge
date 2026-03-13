@@ -41,6 +41,8 @@ export interface StellarForgeAPI {
     load: (path: string) => Promise<Project>;
     exportSfproj: (path: string) => Promise<void>;
     importSfproj: (path: string) => Promise<Project>;
+    pickDirectory: () => Promise<string | null>;
+    create: (projectPath: string, options: { name: string; author: string; stellarisVersion: string; tags?: string[] }) => Promise<Project>;
   };
   game: {
     scan: (gamePath: string) => Promise<GameDataIndex>;

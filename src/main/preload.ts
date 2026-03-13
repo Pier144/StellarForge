@@ -12,6 +12,8 @@ const api: StellarForgeAPI = {
     load: (path) => ipcRenderer.invoke('project:load', path),
     exportSfproj: (path) => ipcRenderer.invoke('project:export-sfproj', path),
     importSfproj: (path) => ipcRenderer.invoke('project:import-sfproj', path),
+    pickDirectory: () => ipcRenderer.invoke('project:pick-directory'),
+    create: (projectPath, options) => ipcRenderer.invoke('project:create', projectPath, options),
   },
   game: {
     scan: (gamePath) => ipcRenderer.invoke('game:scan', gamePath),
