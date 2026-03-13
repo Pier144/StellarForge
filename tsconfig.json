@@ -19,6 +19,6 @@
       "@main/*": ["src/main/*"]
     }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src/renderer", "src/shared"],
+  "exclude": ["src/main"]
 }
