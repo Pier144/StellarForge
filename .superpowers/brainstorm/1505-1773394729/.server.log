@@ -1,0 +1,12 @@
+{"type":"server-started","port":51296,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:51296","screen_dir":"C:/Users/pierangelo.pancera/Desktop/Programmi Dev/StellarForge/.superpowers/brainstorm/1505-1773394729"}
+{"type":"screen-added","file":"C:\\Users\\pierangelo.pancera\\Desktop\\Programmi Dev\\StellarForge\\.superpowers\\brainstorm\\1505-1773394729\\categories-selection.html"}
+{"source":"user-event","type":"click","text":"Governments\n      Tipi di governo\n      common/governments/","choice":"governments","id":null,"timestamp":1773394752275}
+{"source":"user-event","type":"click","text":"Authorities\n      Democratico, Imperiale, Oligarchico, etc.\n      common/governments/authorities/","choice":"authorities","id":null,"timestamp":1773394752792}
+{"source":"user-event","type":"click","text":"Authorities\n      Democratico, Imperiale, Oligarchico, etc.\n      common/governments/authorities/","choice":"authorities","id":null,"timestamp":1773394760319}
+{"source":"user-event","type":"click","text":"Governments\n      Tipi di governo\n      common/governments/","choice":"governments","id":null,"timestamp":1773394771903}
+{"source":"user-event","type":"click","text":"Civics\n      Civics dell'impero\n      common/governments/civics/","choice":"civics","id":null,"timestamp":1773394773327}
+{"source":"user-event","type":"click","text":"Buildings\n      Edifici planetari\n      common/buildings/","choice":"buildings","id":null,"timestamp":1773394781807}
+{"source":"user-event","type":"click","text":"Districts\n      Distretti planetari\n      common/districts/","choice":"districts","id":null,"timestamp":1773394782927}
+{"source":"user-event","type":"click","text":"Pop Jobs\n      Lavori per i pop\n      common/pop_jobs/","choice":"pop_jobs","id":null,"timestamp":1773394785791}
+{"source":"user-event","type":"click","text":"Planet Classes\n      Tipi di pianeta\n      common/planet_classes/","choice":"planet_classes","id":null,"timestamp":1773394786336}
+{"type":"server-stopped","reason":"owner process exited"}

@@ -1,0 +1,524 @@
+<h2>Layout di Navigazione - StellarForge</h2>
+<p class="subtitle">Clicca sull'opzione che preferisci. Scorri per vederle tutte.</p>
+
+<style>
+  .nav-option {
+    margin-bottom: 36px;
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .nav-option:hover { border-color: rgba(125,211,252,0.4); }
+  .nav-option.selected { border-color: #7dd3fc; box-shadow: 0 0 20px rgba(125,211,252,0.15); }
+  .nav-option-header {
+    padding: 16px 20px;
+    background: rgba(125,211,252,0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nav-option-header .letter {
+    width: 32px; height: 32px;
+    background: rgba(125,211,252,0.2);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: #7dd3fc;
+  }
+  .nav-option-header h3 { margin: 0; color: #e2e8f0; }
+  .nav-option-header p { margin: 0; color: #94a3b8; font-size: 0.85rem; }
+  .mockup-container {
+    background: #0a0e1a;
+    padding: 16px;
+  }
+
+  /* === MOCKUP STYLES === */
+  .app-frame {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #0f1729;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+  }
+  .app-titlebar {
+    height: 32px;
+    background: #070b14;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ef4444; }
+  .dot-y { background: #eab308; }
+  .dot-g { background: #22c55e; }
+  .titlebar-text { color: #64748b; font-size: 0.75rem; margin-left: 12px; }
+  .app-body { display: flex; flex: 1; overflow: hidden; }
+
+  /* Sidebar styles */
+  .mock-side {
+    width: 220px;
+    min-width: 220px;
+    background: #0c1322;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    padding: 8px 0;
+    overflow-y: auto;
+    font-size: 0.8rem;
+  }
+  .side-section {
+    padding: 0 8px;
+    margin-bottom: 4px;
+  }
+  .side-group {
+    padding: 6px 12px;
+    color: #64748b;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+  .side-item {
+    padding: 5px 12px 5px 24px;
+    color: #94a3b8;
+    border-radius: 4px;
+    cursor: default;
+    font-size: 0.78rem;
+  }
+  .side-item.active {
+    background: rgba(125,211,252,0.1);
+    color: #7dd3fc;
+  }
+  .side-item:hover { background: rgba(255,255,255,0.04); }
+  .side-icon { margin-right: 6px; font-size: 0.7rem; }
+
+  /* Main content area */
+  .main-area {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .main-title { color: #e2e8f0; font-size: 1.1rem; margin: 0 0 16px; }
+  .main-subtitle { color: #64748b; font-size: 0.8rem; margin: -12px 0 16px; }
+
+  /* Cards grid */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
+  .mini-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+  }
+  .mini-card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+  }
+  .mini-card-name {
+    color: #cbd5e1;
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+  .mini-card-count {
+    color: #475569;
+    font-size: 0.65rem;
+    margin-top: 2px;
+  }
+
+  /* Tab bar */
+  .tab-bar {
+    display: flex;
+    background: #070b14;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    height: 34px;
+    align-items: flex-end;
+  }
+  .tab-item {
+    padding: 6px 14px;
+    color: #64748b;
+    font-size: 0.75rem;
+    border-bottom: 2px solid transparent;
+    cursor: default;
+  }
+  .tab-item.active {
+    color: #7dd3fc;
+    border-bottom-color: #7dd3fc;
+    background: rgba(125,211,252,0.05);
+  }
+
+  /* Form mockup */
+  .form-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .form-field {
+    flex: 1;
+  }
+  .form-label {
+    color: #64748b;
+    font-size: 0.7rem;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .form-input {
+    width: 100%;
+    height: 30px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .form-input-text {
+    color: #94a3b8;
+    font-size: 0.75rem;
+    padding: 6px 8px;
+    line-height: 30px;
+  }
+
+  /* Code panel */
+  .code-panel {
+    width: 260px;
+    min-width: 260px;
+    background: #080c16;
+    border-left: 1px solid rgba(255,255,255,0.06);
+    padding: 10px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.68rem;
+    color: #64748b;
+    overflow-y: auto;
+    line-height: 1.5;
+  }
+  .code-kw { color: #c084fc; }
+  .code-str { color: #86efac; }
+  .code-num { color: #fbbf24; }
+  .code-cmt { color: #475569; }
+
+  /* Dashboard specific */
+  .dash-header {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .dash-header h2 {
+    color: #e2e8f0;
+    font-size: 1.2rem;
+    margin: 0 0 4px;
+  }
+  .dash-header p {
+    color: #64748b;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+  .dash-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .dash-section-title {
+    color: #7dd3fc;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(125,211,252,0.15);
+  }
+  .dash-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .dash-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    cursor: default;
+    transition: all 0.2s;
+  }
+  .dash-card:hover {
+    background: rgba(125,211,252,0.06);
+    border-color: rgba(125,211,252,0.2);
+  }
+  .dash-card-icon { font-size: 1.2rem; margin-bottom: 4px; }
+  .dash-card-name { color: #cbd5e1; font-size: 0.72rem; font-weight: 500; }
+
+  /* Section nav for option B */
+  .section-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 12px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+  }
+  .section-tab {
+    padding: 5px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    color: #94a3b8;
+    font-size: 0.72rem;
+    cursor: default;
+  }
+  .section-tab.active {
+    background: rgba(125,211,252,0.1);
+    border-color: rgba(125,211,252,0.3);
+    color: #7dd3fc;
+  }
+</style>
+
+<!-- OPTION A: Sidebar with expandable groups -->
+<div class="nav-option" data-choice="sidebar-expandable" onclick="toggleSelect(this)">
+  <div class="nav-option-header">
+    <div class="letter">A</div>
+    <div>
+      <h3>Sidebar con Gruppi Espandibili</h3>
+      <p>Navigazione tipo IDE/file explorer con categorie che si espandono</p>
+    </div>
+  </div>
+  <div class="mockup-container">
+    <div class="app-frame">
+      <div class="app-titlebar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="titlebar-text">StellarForge — My First Mod</span>
+      </div>
+      <div class="app-body">
+        <div class="mock-side">
+          <div class="side-section">
+            <div class="side-group">My First Mod</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9660; Empire Design</div>
+            <div class="side-item">&#9671; Governments</div>
+            <div class="side-item">&#9671; Authorities</div>
+            <div class="side-item active">&#9671; Civics</div>
+            <div class="side-item">&#9671; Origins</div>
+            <div class="side-item">&#9671; Ethics</div>
+            <div class="side-item">&#9671; Traits</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9654; Economy & Planets</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9654; Tech & Traditions</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9654; Military</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9654; Exploration & Events</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9654; Scripting</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9654; Graphics & UI</div>
+          </div>
+        </div>
+        <div class="main-area">
+          <div class="main-title">Civics</div>
+          <div class="main-subtitle">3 civics defined</div>
+          <div class="cards-grid">
+            <div class="mini-card">
+              <div class="mini-card-icon">&#9881;</div>
+              <div class="mini-card-name">Techno Union</div>
+              <div class="mini-card-count">Custom civic</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-icon">&#9881;</div>
+              <div class="mini-card-name">Star Traders</div>
+              <div class="mini-card-count">Custom civic</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-icon">&#9881;</div>
+              <div class="mini-card-name">War Cult</div>
+              <div class="mini-card-count">Custom civic</div>
+            </div>
+            <div class="mini-card" style="border-style:dashed; opacity:0.5;">
+              <div class="mini-card-icon">+</div>
+              <div class="mini-card-name">New Civic</div>
+            </div>
+          </div>
+        </div>
+        <div class="code-panel">
+          <span class="code-cmt"># civic_techno_union</span><br>
+          <span class="code-kw">civic_techno_union</span> = {<br>
+          &nbsp;&nbsp;<span class="code-kw">potential</span> = {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-kw">ethics</span> = {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-kw">OR</span> = {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = <span class="code-str">materialist</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value = <span class="code-str">fanatic_materialist</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+          &nbsp;&nbsp;}<br>
+          &nbsp;&nbsp;<span class="code-kw">modifier</span> = {<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;research_speed = <span class="code-num">0.10</span><br>
+          &nbsp;&nbsp;}<br>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION B: Dashboard + section navigation -->
+<div class="nav-option" data-choice="dashboard-sections" onclick="toggleSelect(this)">
+  <div class="nav-option-header">
+    <div class="letter">B</div>
+    <div>
+      <h3>Dashboard + Navigazione per Sezione</h3>
+      <p>Homepage con cards per macro-categoria, poi tabs per sotto-categorie</p>
+    </div>
+  </div>
+  <div class="mockup-container">
+    <div class="app-frame">
+      <div class="app-titlebar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="titlebar-text">StellarForge — My First Mod</span>
+      </div>
+      <div class="app-body" style="flex-direction:column;">
+        <div class="dash-header">
+          <h2>My First Mod</h2>
+          <p>Stellaris v3.12 &mdash; 12 items defined &mdash; Last edited 2 hours ago</p>
+        </div>
+        <div class="dash-body">
+          <div class="dash-section-title">Empire Design</div>
+          <div class="dash-cards">
+            <div class="dash-card"><div class="dash-card-icon">&#9813;</div><div class="dash-card-name">Governments</div></div>
+            <div class="dash-card"><div class="dash-card-icon">&#9734;</div><div class="dash-card-name">Authorities</div></div>
+            <div class="dash-card" style="border-color:rgba(125,211,252,0.3);"><div class="dash-card-icon">&#9881;</div><div class="dash-card-name">Civics (3)</div></div>
+            <div class="dash-card"><div class="dash-card-icon">&#127759;</div><div class="dash-card-name">Origins</div></div>
+            <div class="dash-card"><div class="dash-card-icon">&#9775;</div><div class="dash-card-name">Ethics</div></div>
+            <div class="dash-card"><div class="dash-card-icon">&#128302;</div><div class="dash-card-name">Traits (5)</div></div>
+          </div>
+          <div class="dash-section-title">Economy & Planets</div>
+          <div class="dash-cards">
+            <div class="dash-card"><div class="dash-card-icon">&#127967;</div><div class="dash-card-name">Buildings (2)</div></div>
+            <div class="dash-card"><div class="dash-card-icon">&#127961;</div><div class="dash-card-name">Districts</div></div>
+            <div class="dash-card"><div class="dash-card-icon">&#128119;</div><div class="dash-card-name">Pop Jobs</div></div>
+            <div class="dash-card"><div class="dash-card-icon">&#127760;</div><div class="dash-card-name">Planets</div></div>
+          </div>
+          <div class="dash-section-title">Tech & Traditions</div>
+          <div class="dash-cards">
+            <div class="dash-card"><div class="dash-card-icon">&#128300;</div><div class="dash-card-name">Technologies (2)</div></div>
+            <div class="dash-card"><div class="dash-card-icon">&#128220;</div><div class="dash-card-name">Traditions</div></div>
+            <div class="dash-card"><div class="dash-card-icon">&#11088;</div><div class="dash-card-name">Ascension</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OPTION C: Sidebar + multi-tab workspace -->
+<div class="nav-option" data-choice="sidebar-tabs" onclick="toggleSelect(this)">
+  <div class="nav-option-header">
+    <div class="letter">C</div>
+    <div>
+      <h3>Sidebar + Area di Lavoro a Tab</h3>
+      <p>Sidebar per navigare + tab multiple aperte simultaneamente (stile VS Code)</p>
+    </div>
+  </div>
+  <div class="mockup-container">
+    <div class="app-frame">
+      <div class="app-titlebar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="titlebar-text">StellarForge — My First Mod</span>
+      </div>
+      <div class="app-body">
+        <div class="mock-side" style="width:180px; min-width:180px;">
+          <div class="side-section">
+            <div class="side-group">&#9660; Empire Design</div>
+            <div class="side-item">Civics</div>
+            <div class="side-item">Traits</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9660; Tech</div>
+            <div class="side-item active">Technologies</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9654; Economy</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9654; Military</div>
+          </div>
+          <div class="side-section">
+            <div class="side-group">&#9654; Events</div>
+          </div>
+        </div>
+        <div style="flex:1; display:flex; flex-direction:column;">
+          <div class="tab-bar">
+            <div class="tab-item">&#9881; civic_techno_union</div>
+            <div class="tab-item active">&#128300; tech_advanced_ai</div>
+            <div class="tab-item">&#128302; trait_resilient</div>
+          </div>
+          <div style="display:flex; flex:1;">
+            <div class="main-area" style="flex:1;">
+              <div class="main-title">tech_advanced_ai</div>
+              <div class="form-row">
+                <div class="form-field">
+                  <div class="form-label">Technology Name</div>
+                  <div class="form-input"><span class="form-input-text">Advanced AI Protocols</span></div>
+                </div>
+                <div class="form-field">
+                  <div class="form-label">Area</div>
+                  <div class="form-input"><span class="form-input-text">Physics</span></div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <div class="form-label">Tier</div>
+                  <div class="form-input"><span class="form-input-text">3</span></div>
+                </div>
+                <div class="form-field">
+                  <div class="form-label">Cost</div>
+                  <div class="form-input"><span class="form-input-text">6000</span></div>
+                </div>
+                <div class="form-field">
+                  <div class="form-label">Weight</div>
+                  <div class="form-input"><span class="form-input-text">75</span></div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <div class="form-label">Prerequisites</div>
+                  <div class="form-input"><span class="form-input-text">tech_ai_1, tech_computing_2</span></div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <div class="form-label">Modifiers</div>
+                  <div class="form-input" style="height:50px;"><span class="form-input-text">research_speed +5%</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="code-panel" style="width:220px; min-width:220px;">
+              <span class="code-kw">tech_advanced_ai</span> = {<br>
+              &nbsp;&nbsp;<span class="code-kw">area</span> = <span class="code-str">physics</span><br>
+              &nbsp;&nbsp;<span class="code-kw">tier</span> = <span class="code-num">3</span><br>
+              &nbsp;&nbsp;<span class="code-kw">cost</span> = <span class="code-num">6000</span><br>
+              &nbsp;&nbsp;<span class="code-kw">weight</span> = <span class="code-num">75</span><br>
+              &nbsp;&nbsp;<span class="code-kw">prerequisites</span> = {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"tech_ai_1"</span><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"tech_computing_2"</span><br>
+              &nbsp;&nbsp;}<br>
+              &nbsp;&nbsp;<span class="code-kw">modifier</span> = {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;research_speed = <span class="code-num">0.05</span><br>
+              &nbsp;&nbsp;}<br>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

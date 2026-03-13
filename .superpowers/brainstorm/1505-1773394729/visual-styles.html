@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StellarForge - Visual Styles</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #06080f;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    padding: 32px;
+    line-height: 1.5;
+  }
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .page-subtitle {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+  }
+
+  .style-section {
+    margin-bottom: 56px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 24px;
+    transition: all 0.3s;
+  }
+  .style-section:hover { border-color: rgba(125,211,252,0.2); }
+  .style-section.selected { border-color: #7dd3fc; box-shadow: 0 0 30px rgba(125,211,252,0.1); }
+
+  .style-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .style-letter {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1.1rem;
+  }
+  .style-title { font-size: 1.2rem; font-weight: 600; }
+  .style-desc { color: #94a3b8; font-size: 0.85rem; margin-top: 2px; }
+
+  /* ========= SHARED FRAME ========= */
+  .app-frame {
+    border-radius: 12px;
+    overflow: hidden;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+  }
+  .app-titlebar {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 8px;
+  }
+  .dots { display: flex; gap: 6px; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .app-body { display: flex; flex: 1; overflow: hidden; }
+
+  /* Sidebar */
+  .sb { width: 230px; min-width: 230px; padding: 12px 0; overflow-y: auto; }
+  .sb-project { padding: 10px 16px; font-weight: 600; font-size: 0.82rem; letter-spacing: 0.3px; }
+  .sb-group { padding: 8px 16px; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .sb-item { padding: 6px 16px 6px 36px; font-size: 0.8rem; border-radius: 0; transition: all 0.15s; }
+  .sb-item.active { font-weight: 500; }
+
+  /* Main */
+  .main { flex: 1; padding: 24px; overflow-y: auto; }
+  .main-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .main h2 { font-size: 1.15rem; font-weight: 600; }
+  .main .count { font-size: 0.78rem; }
+
+  /* Cards */
+  .cg { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .cd { border-radius: 10px; padding: 16px; transition: all 0.2s; cursor: default; }
+  .cd-icon { font-size: 1.6rem; margin-bottom: 8px; }
+  .cd-name { font-weight: 500; font-size: 0.85rem; }
+  .cd-sub { font-size: 0.72rem; margin-top: 3px; }
+  .cd-new { border-style: dashed !important; opacity: 0.5; text-align: center; }
+
+  /* Code panel */
+  .cp { width: 270px; min-width: 270px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; overflow-y: auto; line-height: 1.7; }
+  .cp-header { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; font-weight: 600; font-family: 'Inter', sans-serif; }
+
+  /* Add button */
+  .btn-add {
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: none;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* ========================================== */
+  /* STYLE 1: GLASSMORPHISM                     */
+  /* ========================================== */
+  .s1 .app-frame {
+    background: linear-gradient(135deg, #0c1220 0%, #131b2e 50%, #0e1525 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .s1 .app-titlebar {
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+  }
+  .s1 .dot:nth-child(1) { background: #ff5f57; }
+  .s1 .dot:nth-child(2) { background: #ffbd2e; }
+  .s1 .dot:nth-child(3) { background: #28c840; }
+  .s1 .titlebar-text { color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-left: 12px; }
+
+  .s1 .sb {
+    background: rgba(255,255,255,0.02);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+  }
+  .s1 .sb-project { color: rgba(255,255,255,0.7); }
+  .s1 .sb-group { color: rgba(125,211,252,0.6); }
+  .s1 .sb-item { color: rgba(255,255,255,0.45); }
+  .s1 .sb-item:hover { background: rgba(255,255,255,0.04); }
+  .s1 .sb-item.active {
+    background: rgba(125,211,252,0.08);
+    color: #7dd3fc;
+    border-left: 2px solid #7dd3fc;
+    padding-left: 34px;
+  }
+
+  .s1 .main { background: rgba(255,255,255,0.01); }
+  .s1 .main h2 { color: #f1f5f9; font-weight: 500; letter-spacing: -0.3px; }
+  .s1 .count { color: rgba(255,255,255,0.3); }
+
+  .s1 .cd {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(10px);
+  }
+  .s1 .cd:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(125,211,252,0.2);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  .s1 .cd-name { color: #e2e8f0; }
+  .s1 .cd-sub { color: rgba(255,255,255,0.3); }
+
+  .s1 .btn-add {
+    background: rgba(125,211,252,0.1);
+    color: #7dd3fc;
+    border: 1px solid rgba(125,211,252,0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .s1 .cp {
+    background: rgba(0,0,0,0.3);
+    border-left: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+  }
+  .s1 .cp-header { color: rgba(255,255,255,0.3); }
+  .s1 .kw { color: #c4b5fd; }
+  .s1 .str { color: #86efac; }
+  .s1 .num { color: #fde68a; }
+  .s1 .cmt { color: rgba(255,255,255,0.2); }
+  .s1 .punc { color: rgba(255,255,255,0.3); }
+
+  .s1 .style-letter { background: rgba(125,211,252,0.15); color: #7dd3fc; }
+
+  /* ========================================== */
+  /* STYLE 2: MINIMAL DARK + NEON ACCENTS       */
+  /* ========================================== */
+  .s2 .app-frame {
+    background: #09090b;
+    border: 1px solid #1a1a2e;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .s2 .app-titlebar {
+    background: #09090b;
+    border-bottom: 1px solid #1a1a2e;
+  }
+  .s2 .dot { background: #27272a; }
+  .s2 .dot:nth-child(1):hover { background: #ef4444; }
+  .s2 .titlebar-text { color: #3f3f46; font-size: 0.78rem; margin-left: 12px; }
+
+  .s2 .sb {
+    background: #09090b;
+    border-right: 1px solid #1a1a2e;
+  }
+  .s2 .sb-project { color: #a1a1aa; font-size: 0.78rem; }
+  .s2 .sb-group { color: #52525b; }
+  .s2 .sb-item { color: #71717a; }
+  .s2 .sb-item:hover { color: #a1a1aa; }
+  .s2 .sb-item.active {
+    color: #22d3ee;
+    background: transparent;
+    position: relative;
+  }
+
+  .s2 .main { background: #0a0a0c; }
+  .s2 .main h2 { color: #fafafa; font-weight: 700; letter-spacing: -0.5px; }
+  .s2 .count { color: #3f3f46; }
+
+  .s2 .cd {
+    background: #111113;
+    border: 1px solid #1c1c24;
+  }
+  .s2 .cd:hover {
+    border-color: #22d3ee;
+    box-shadow: 0 0 20px rgba(34,211,238,0.06);
+  }
+  .s2 .cd-name { color: #e4e4e7; }
+  .s2 .cd-sub { color: #52525b; }
+
+  .s2 .btn-add {
+    background: #22d3ee;
+    color: #09090b;
+    font-weight: 600;
+  }
+
+  .s2 .cp {
+    background: #09090b;
+    border-left: 1px solid #1a1a2e;
+  }
+  .s2 .cp-header { color: #3f3f46; }
+  .s2 .kw { color: #22d3ee; }
+  .s2 .str { color: #a78bfa; }
+  .s2 .num { color: #34d399; }
+  .s2 .cmt { color: #27272a; }
+  .s2 .punc { color: #3f3f46; }
+
+  .s2 .style-letter { background: #22d3ee; color: #09090b; }
+
+  /* ========================================== */
+  /* STYLE 3: SCI-FI IMMERSIVE                  */
+  /* ========================================== */
+  .s3 .app-frame {
+    background: linear-gradient(180deg, #050810 0%, #0a0f1e 100%);
+    border: 1px solid rgba(0,200,255,0.1);
+    box-shadow: 0 0 40px rgba(0,150,255,0.05), 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .s3 .app-titlebar {
+    background: rgba(0,200,255,0.03);
+    border-bottom: 1px solid rgba(0,200,255,0.08);
+  }
+  .s3 .dot { width: 8px; height: 8px; }
+  .s3 .dot:nth-child(1) { background: #0ea5e9; box-shadow: 0 0 6px #0ea5e9; }
+  .s3 .dot:nth-child(2) { background: #06b6d4; box-shadow: 0 0 6px #06b6d4; }
+  .s3 .dot:nth-child(3) { background: #14b8a6; box-shadow: 0 0 6px #14b8a6; }
+  .s3 .titlebar-text {
+    color: rgba(0,200,255,0.4);
+    font-size: 0.72rem;
+    margin-left: 12px;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .s3 .sb {
+    background: rgba(0,10,30,0.6);
+    border-right: 1px solid rgba(0,200,255,0.08);
+  }
+  .s3 .sb-project {
+    color: rgba(0,200,255,0.7);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .s3 .sb-group {
+    color: rgba(0,200,255,0.4);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 1px;
+  }
+  .s3 .sb-item { color: rgba(150,200,255,0.4); font-size: 0.78rem; }
+  .s3 .sb-item:hover { color: rgba(150,200,255,0.7); background: rgba(0,200,255,0.04); }
+  .s3 .sb-item.active {
+    color: #22d3ee;
+    background: rgba(0,200,255,0.06);
+    border-left: 2px solid #22d3ee;
+    padding-left: 34px;
+    box-shadow: inset 4px 0 12px rgba(0,200,255,0.05);
+  }
+
+  .s3 .main { background: rgba(5,8,16,0.5); }
+  .s3 .main h2 {
+    color: #e0f2fe;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+  .s3 .count { color: rgba(0,200,255,0.3); font-family: 'Orbitron', monospace; font-size: 0.65rem; }
+
+  .s3 .cd {
+    background: rgba(0,20,50,0.3);
+    border: 1px solid rgba(0,200,255,0.08);
+    position: relative;
+  }
+  .s3 .cd::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,200,255,0.3), transparent);
+  }
+  .s3 .cd:hover {
+    background: rgba(0,40,80,0.3);
+    border-color: rgba(0,200,255,0.25);
+    box-shadow: 0 0 20px rgba(0,200,255,0.05);
+  }
+  .s3 .cd-name { color: #bae6fd; font-size: 0.82rem; }
+  .s3 .cd-sub { color: rgba(0,200,255,0.3); }
+
+  .s3 .btn-add {
+    background: transparent;
+    color: #22d3ee;
+    border: 1px solid rgba(0,200,255,0.3);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .s3 .cp {
+    background: rgba(0,5,15,0.8);
+    border-left: 1px solid rgba(0,200,255,0.08);
+  }
+  .s3 .cp-header {
+    color: rgba(0,200,255,0.3);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+  }
+  .s3 .kw { color: #38bdf8; }
+  .s3 .str { color: #2dd4bf; }
+  .s3 .num { color: #a78bfa; }
+  .s3 .cmt { color: rgba(0,200,255,0.15); }
+  .s3 .punc { color: rgba(0,200,255,0.25); }
+
+  .s3 .style-letter { background: rgba(0,200,255,0.15); color: #22d3ee; border: 1px solid rgba(0,200,255,0.3); }
+
+  /* ========================================== */
+  /* STYLE 4: AURORA GRADIENT                   */
+  /* ========================================== */
+  .s4 .app-frame {
+    background: linear-gradient(160deg, #0f0618 0%, #0a0d1f 40%, #061218 100%);
+    border: 1px solid rgba(168,85,247,0.1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .s4 .app-titlebar {
+    background: rgba(168,85,247,0.03);
+    border-bottom: 1px solid rgba(168,85,247,0.08);
+  }
+  .s4 .dot:nth-child(1) { background: #f472b6; }
+  .s4 .dot:nth-child(2) { background: #a78bfa; }
+  .s4 .dot:nth-child(3) { background: #34d399; }
+  .s4 .titlebar-text { color: rgba(168,85,247,0.4); font-size: 0.78rem; margin-left: 12px; }
+
+  .s4 .sb {
+    background: rgba(15,6,24,0.5);
+    border-right: 1px solid rgba(168,85,247,0.06);
+  }
+  .s4 .sb-project { color: rgba(196,181,253,0.7); }
+  .s4 .sb-group { color: rgba(168,85,247,0.5); }
+  .s4 .sb-item { color: rgba(196,181,253,0.4); }
+  .s4 .sb-item:hover { background: rgba(168,85,247,0.06); color: rgba(196,181,253,0.7); }
+  .s4 .sb-item.active {
+    background: linear-gradient(90deg, rgba(168,85,247,0.1), transparent);
+    color: #c4b5fd;
+    border-left: 2px solid #a78bfa;
+    padding-left: 34px;
+  }
+
+  .s4 .main { background: transparent; }
+  .s4 .main h2 { color: #f5f3ff; font-weight: 500; }
+  .s4 .count { color: rgba(168,85,247,0.4); }
+
+  .s4 .cd {
+    background: rgba(168,85,247,0.04);
+    border: 1px solid rgba(168,85,247,0.08);
+  }
+  .s4 .cd:hover {
+    background: rgba(168,85,247,0.08);
+    border-color: rgba(168,85,247,0.2);
+    box-shadow: 0 4px 20px rgba(168,85,247,0.08);
+  }
+  .s4 .cd-name { color: #ede9fe; }
+  .s4 .cd-sub { color: rgba(168,85,247,0.35); }
+
+  .s4 .btn-add {
+    background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(236,72,153,0.2));
+    color: #c4b5fd;
+    border: 1px solid rgba(168,85,247,0.2);
+  }
+
+  .s4 .cp {
+    background: rgba(5,2,10,0.5);
+    border-left: 1px solid rgba(168,85,247,0.06);
+  }
+  .s4 .cp-header { color: rgba(168,85,247,0.3); }
+  .s4 .kw { color: #c084fc; }
+  .s4 .str { color: #f9a8d4; }
+  .s4 .num { color: #6ee7b7; }
+  .s4 .cmt { color: rgba(168,85,247,0.15); }
+  .s4 .punc { color: rgba(168,85,247,0.25); }
+
+  .s4 .style-letter { background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(236,72,153,0.2)); color: #c4b5fd; border: 1px solid rgba(168,85,247,0.2); }
+
+  /* ========================================== */
+  /* STYLE 5: WARM CARBON                       */
+  /* ========================================== */
+  .s5 .app-frame {
+    background: #141414;
+    border: 1px solid #262626;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .s5 .app-titlebar {
+    background: #1a1a1a;
+    border-bottom: 1px solid #262626;
+  }
+  .s5 .dot:nth-child(1) { background: #ef4444; }
+  .s5 .dot:nth-child(2) { background: #f59e0b; }
+  .s5 .dot:nth-child(3) { background: #10b981; }
+  .s5 .titlebar-text { color: #525252; font-size: 0.78rem; margin-left: 12px; }
+
+  .s5 .sb {
+    background: #141414;
+    border-right: 1px solid #262626;
+  }
+  .s5 .sb-project { color: #d4d4d4; }
+  .s5 .sb-group { color: #f59e0b; font-size: 0.68rem; }
+  .s5 .sb-item { color: #737373; }
+  .s5 .sb-item:hover { color: #a3a3a3; background: #1c1c1c; }
+  .s5 .sb-item.active {
+    color: #fbbf24;
+    background: rgba(245,158,11,0.06);
+    border-left: 2px solid #f59e0b;
+    padding-left: 34px;
+  }
+
+  .s5 .main { background: #171717; }
+  .s5 .main h2 { color: #f5f5f5; font-weight: 600; }
+  .s5 .count { color: #525252; }
+
+  .s5 .cd {
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+  }
+  .s5 .cd:hover {
+    border-color: #f59e0b;
+    box-shadow: 0 4px 16px rgba(245,158,11,0.06);
+  }
+  .s5 .cd-name { color: #e5e5e5; }
+  .s5 .cd-sub { color: #525252; }
+
+  .s5 .btn-add {
+    background: #f59e0b;
+    color: #141414;
+    font-weight: 600;
+  }
+
+  .s5 .cp {
+    background: #111111;
+    border-left: 1px solid #262626;
+  }
+  .s5 .cp-header { color: #525252; }
+  .s5 .kw { color: #fbbf24; }
+  .s5 .str { color: #34d399; }
+  .s5 .num { color: #60a5fa; }
+  .s5 .cmt { color: #333333; }
+  .s5 .punc { color: #525252; }
+
+  .s5 .style-letter { background: #f59e0b; color: #141414; }
+
+  /* Selection indicator */
+  .selection-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(9,9,11,0.95);
+    border-top: 1px solid #1a1a2e;
+    padding: 12px 32px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: #7dd3fc;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+  }
+  .selection-bar.visible { display: flex; }
+</style>
+</head>
+<body>
+
+<h1>Stili Visuali per StellarForge</h1>
+<p class="page-subtitle">Clicca sullo stile che preferisci. Tutti usano il layout A (sidebar espandibile).</p>
+
+<!-- STYLE 1: GLASSMORPHISM -->
+<div class="style-section s1" onclick="selectStyle(this, 'glassmorphism')">
+  <div class="style-header">
+    <div class="style-letter">A</div>
+    <div>
+      <div class="style-title">Glassmorphism + Blur</div>
+      <div class="style-desc">Pannelli semi-trasparenti con effetto vetro, sfumature profonde, bordi luminosi sottili. Stile Apple/Windows 11.</div>
+    </div>
+  </div>
+  <div class="app-frame">
+    <div class="app-titlebar">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <span class="titlebar-text">StellarForge &mdash; My First Mod</span>
+    </div>
+    <div class="app-body">
+      <div class="sb">
+        <div class="sb-project">My First Mod</div>
+        <div class="sb-group">&#9660; Empire Design</div>
+        <div class="sb-item">Governments</div>
+        <div class="sb-item">Authorities</div>
+        <div class="sb-item active">Civics</div>
+        <div class="sb-item">Origins</div>
+        <div class="sb-item">Ethics</div>
+        <div class="sb-item">Traits</div>
+        <div class="sb-group">&#9654; Economy & Planets</div>
+        <div class="sb-group">&#9654; Tech & Traditions</div>
+        <div class="sb-group">&#9654; Military</div>
+        <div class="sb-group">&#9654; Exploration & Events</div>
+        <div class="sb-group">&#9654; Scripting</div>
+        <div class="sb-group">&#9654; Graphics & UI</div>
+      </div>
+      <div class="main">
+        <div class="main-top">
+          <div>
+            <h2>Civics</h2>
+            <div class="count">3 items</div>
+          </div>
+          <button class="btn-add">+ New Civic</button>
+        </div>
+        <div class="cg">
+          <div class="cd"><div class="cd-icon">&#9881;</div><div class="cd-name">Techno Union</div><div class="cd-sub">Materialist only</div></div>
+          <div class="cd"><div class="cd-icon">&#9878;</div><div class="cd-name">Star Traders</div><div class="cd-sub">Merchant guilds</div></div>
+          <div class="cd"><div class="cd-icon">&#9876;</div><div class="cd-name">War Cult</div><div class="cd-sub">Militarist only</div></div>
+          <div class="cd cd-new"><div class="cd-icon">+</div><div class="cd-name">Add Civic</div></div>
+        </div>
+      </div>
+      <div class="cp">
+        <div class="cp-header">Live Code Preview</div>
+        <span class="cmt"># civic_techno_union</span><br>
+        <span class="kw">civic_techno_union</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;<span class="kw">potential</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">ethics</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">OR</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value <span class="punc">=</span> <span class="str">materialist</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value <span class="punc">=</span> <span class="str">fanatic_materialist</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;<span class="kw">modifier</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;research_speed <span class="punc">=</span> <span class="num">0.10</span><br>
+        &nbsp;&nbsp;<span class="punc">}</span><br>
+        <span class="punc">}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STYLE 2: MINIMAL DARK -->
+<div class="style-section s2" onclick="selectStyle(this, 'minimal-dark')">
+  <div class="style-header">
+    <div class="style-letter">B</div>
+    <div>
+      <div class="style-title">Minimal Dark + Neon Accents</div>
+      <div class="style-desc">Nero puro, tipografia forte, accenti cyan solo dove serve. Spazi ampi. Stile Linear/Vercel.</div>
+    </div>
+  </div>
+  <div class="app-frame">
+    <div class="app-titlebar">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <span class="titlebar-text">StellarForge</span>
+    </div>
+    <div class="app-body">
+      <div class="sb">
+        <div class="sb-project">My First Mod</div>
+        <div class="sb-group">Empire Design</div>
+        <div class="sb-item">Governments</div>
+        <div class="sb-item">Authorities</div>
+        <div class="sb-item active">&#9656; Civics</div>
+        <div class="sb-item">Origins</div>
+        <div class="sb-item">Ethics</div>
+        <div class="sb-item">Traits</div>
+        <div class="sb-group">Economy & Planets</div>
+        <div class="sb-group">Tech & Traditions</div>
+        <div class="sb-group">Military</div>
+        <div class="sb-group">Exploration</div>
+        <div class="sb-group">Scripting</div>
+      </div>
+      <div class="main">
+        <div class="main-top">
+          <div>
+            <h2>Civics</h2>
+            <div class="count">3 items</div>
+          </div>
+          <button class="btn-add">+ New</button>
+        </div>
+        <div class="cg">
+          <div class="cd"><div class="cd-icon">&#9881;</div><div class="cd-name">Techno Union</div><div class="cd-sub">Materialist only</div></div>
+          <div class="cd"><div class="cd-icon">&#9878;</div><div class="cd-name">Star Traders</div><div class="cd-sub">Merchant guilds</div></div>
+          <div class="cd"><div class="cd-icon">&#9876;</div><div class="cd-name">War Cult</div><div class="cd-sub">Militarist only</div></div>
+          <div class="cd cd-new"><div class="cd-icon">+</div><div class="cd-name">Add Civic</div></div>
+        </div>
+      </div>
+      <div class="cp">
+        <div class="cp-header">Code</div>
+        <span class="cmt"># civic_techno_union</span><br>
+        <span class="kw">civic_techno_union</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;<span class="kw">potential</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">ethics</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">OR</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value <span class="punc">=</span> <span class="str">materialist</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value <span class="punc">=</span> <span class="str">fanatic_materialist</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;<span class="kw">modifier</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;research_speed <span class="punc">=</span> <span class="num">0.05</span><br>
+        &nbsp;&nbsp;<span class="punc">}</span><br>
+        <span class="punc">}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STYLE 3: SCI-FI -->
+<div class="style-section s3" onclick="selectStyle(this, 'sci-fi')">
+  <div class="style-header">
+    <div class="style-letter">C</div>
+    <div>
+      <div class="style-title">Sci-Fi Immersivo</div>
+      <div class="style-desc">Interfaccia da navicella spaziale. Glow effects, linee luminose, font Orbitron. Vicino all'estetica di Stellaris.</div>
+    </div>
+  </div>
+  <div class="app-frame">
+    <div class="app-titlebar">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <span class="titlebar-text">StellarForge &mdash; My First Mod</span>
+    </div>
+    <div class="app-body">
+      <div class="sb">
+        <div class="sb-project">My First Mod</div>
+        <div class="sb-group">&#11208; Empire Design</div>
+        <div class="sb-item">Governments</div>
+        <div class="sb-item">Authorities</div>
+        <div class="sb-item active">Civics</div>
+        <div class="sb-item">Origins</div>
+        <div class="sb-item">Ethics</div>
+        <div class="sb-item">Traits</div>
+        <div class="sb-group">&#11208; Economy & Planets</div>
+        <div class="sb-group">&#11208; Tech & Traditions</div>
+        <div class="sb-group">&#11208; Military</div>
+        <div class="sb-group">&#11208; Exploration</div>
+        <div class="sb-group">&#11208; Scripting</div>
+      </div>
+      <div class="main">
+        <div class="main-top">
+          <div>
+            <h2>Civics</h2>
+            <div class="count">3 items defined</div>
+          </div>
+          <button class="btn-add">+ NEW CIVIC</button>
+        </div>
+        <div class="cg">
+          <div class="cd"><div class="cd-icon">&#9881;</div><div class="cd-name">Techno Union</div><div class="cd-sub">Materialist</div></div>
+          <div class="cd"><div class="cd-icon">&#9878;</div><div class="cd-name">Star Traders</div><div class="cd-sub">Merchant guilds</div></div>
+          <div class="cd"><div class="cd-icon">&#9876;</div><div class="cd-name">War Cult</div><div class="cd-sub">Militarist</div></div>
+          <div class="cd cd-new"><div class="cd-icon">+</div><div class="cd-name">Add</div></div>
+        </div>
+      </div>
+      <div class="cp">
+        <div class="cp-header">// Live Output</div>
+        <span class="cmt"># civic_techno_union</span><br>
+        <span class="kw">civic_techno_union</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;<span class="kw">potential</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">ethics</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">OR</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value <span class="punc">=</span> <span class="str">materialist</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value <span class="punc">=</span> <span class="str">fanatic_materialist</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;<span class="kw">modifier</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;research_speed <span class="punc">=</span> <span class="num">0.10</span><br>
+        &nbsp;&nbsp;<span class="punc">}</span><br>
+        <span class="punc">}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STYLE 4: AURORA GRADIENT -->
+<div class="style-section s4" onclick="selectStyle(this, 'aurora-gradient')">
+  <div class="style-header">
+    <div class="style-letter">D</div>
+    <div>
+      <div class="style-title">Aurora Gradient</div>
+      <div class="style-desc">Sfumature viola/rosa/verde tipo aurora boreale. Elegante e misterioso. Palette fredda con tocchi caldi.</div>
+    </div>
+  </div>
+  <div class="app-frame">
+    <div class="app-titlebar">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <span class="titlebar-text">StellarForge &mdash; My First Mod</span>
+    </div>
+    <div class="app-body">
+      <div class="sb">
+        <div class="sb-project">My First Mod</div>
+        <div class="sb-group">&#9660; Empire Design</div>
+        <div class="sb-item">Governments</div>
+        <div class="sb-item">Authorities</div>
+        <div class="sb-item active">Civics</div>
+        <div class="sb-item">Origins</div>
+        <div class="sb-item">Ethics</div>
+        <div class="sb-item">Traits</div>
+        <div class="sb-group">&#9654; Economy & Planets</div>
+        <div class="sb-group">&#9654; Tech & Traditions</div>
+        <div class="sb-group">&#9654; Military</div>
+        <div class="sb-group">&#9654; Exploration</div>
+        <div class="sb-group">&#9654; Scripting</div>
+      </div>
+      <div class="main">
+        <div class="main-top">
+          <div>
+            <h2>Civics</h2>
+            <div class="count">3 items</div>
+          </div>
+          <button class="btn-add">+ New Civic</button>
+        </div>
+        <div class="cg">
+          <div class="cd"><div class="cd-icon">&#9881;</div><div class="cd-name">Techno Union</div><div class="cd-sub">Materialist only</div></div>
+          <div class="cd"><div class="cd-icon">&#9878;</div><div class="cd-name">Star Traders</div><div class="cd-sub">Merchant guilds</div></div>
+          <div class="cd"><div class="cd-icon">&#9876;</div><div class="cd-name">War Cult</div><div class="cd-sub">Militarist only</div></div>
+          <div class="cd cd-new"><div class="cd-icon">+</div><div class="cd-name">Add Civic</div></div>
+        </div>
+      </div>
+      <div class="cp">
+        <div class="cp-header">Live Preview</div>
+        <span class="cmt"># civic_techno_union</span><br>
+        <span class="kw">civic_techno_union</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;<span class="kw">potential</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">ethics</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">OR</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value <span class="punc">=</span> <span class="str">materialist</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value <span class="punc">=</span> <span class="str">fanatic_materialist</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;<span class="kw">modifier</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;research_speed <span class="punc">=</span> <span class="num">0.10</span><br>
+        &nbsp;&nbsp;<span class="punc">}</span><br>
+        <span class="punc">}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STYLE 5: WARM CARBON -->
+<div class="style-section s5" onclick="selectStyle(this, 'warm-carbon')">
+  <div class="style-header">
+    <div class="style-letter">E</div>
+    <div>
+      <div class="style-title">Warm Carbon</div>
+      <div class="style-desc">Nero carbone con accenti ambra/oro caldo. Elegante e professionale. Ispirato a Sublime Text/GitHub Dark.</div>
+    </div>
+  </div>
+  <div class="app-frame">
+    <div class="app-titlebar">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <span class="titlebar-text">StellarForge &mdash; My First Mod</span>
+    </div>
+    <div class="app-body">
+      <div class="sb">
+        <div class="sb-project">My First Mod</div>
+        <div class="sb-group">&#9660; Empire Design</div>
+        <div class="sb-item">Governments</div>
+        <div class="sb-item">Authorities</div>
+        <div class="sb-item active">Civics</div>
+        <div class="sb-item">Origins</div>
+        <div class="sb-item">Ethics</div>
+        <div class="sb-item">Traits</div>
+        <div class="sb-group">&#9654; Economy & Planets</div>
+        <div class="sb-group">&#9654; Tech & Traditions</div>
+        <div class="sb-group">&#9654; Military</div>
+        <div class="sb-group">&#9654; Exploration</div>
+        <div class="sb-group">&#9654; Scripting</div>
+      </div>
+      <div class="main">
+        <div class="main-top">
+          <div>
+            <h2>Civics</h2>
+            <div class="count">3 items</div>
+          </div>
+          <button class="btn-add">+ New Civic</button>
+        </div>
+        <div class="cg">
+          <div class="cd"><div class="cd-icon">&#9881;</div><div class="cd-name">Techno Union</div><div class="cd-sub">Materialist only</div></div>
+          <div class="cd"><div class="cd-icon">&#9878;</div><div class="cd-name">Star Traders</div><div class="cd-sub">Merchant guilds</div></div>
+          <div class="cd"><div class="cd-icon">&#9876;</div><div class="cd-name">War Cult</div><div class="cd-sub">Militarist only</div></div>
+          <div class="cd cd-new"><div class="cd-icon">+</div><div class="cd-name">Add Civic</div></div>
+        </div>
+      </div>
+      <div class="cp">
+        <div class="cp-header">Code Preview</div>
+        <span class="cmt"># civic_techno_union</span><br>
+        <span class="kw">civic_techno_union</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;<span class="kw">potential</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">ethics</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">OR</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value <span class="punc">=</span> <span class="str">materialist</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value <span class="punc">=</span> <span class="str">fanatic_materialist</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;<span class="punc">}</span><br>
+        &nbsp;&nbsp;<span class="kw">modifier</span> <span class="punc">= {</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;research_speed <span class="punc">=</span> <span class="num">0.10</span><br>
+        &nbsp;&nbsp;<span class="punc">}</span><br>
+        <span class="punc">}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="selection-bar" id="selBar">
+  <span id="selText"></span>
+</div>
+
+<script>
+  let selectedEl = null;
+  function selectStyle(el, name) {
+    if (selectedEl) selectedEl.classList.remove('selected');
+    el.classList.add('selected');
+    selectedEl = el;
+    const bar = document.getElementById('selBar');
+    bar.classList.add('visible');
+    document.getElementById('selText').textContent = 'Selezionato: ' + el.querySelector('.style-title').textContent;
+  }
+</script>
+
+</body>
+</html>

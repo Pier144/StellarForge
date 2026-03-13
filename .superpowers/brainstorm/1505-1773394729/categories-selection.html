@@ -1,0 +1,540 @@
+<h2>Categorie Moddabili di Stellaris</h2>
+<p class="subtitle">Seleziona tutte le categorie che vuoi includere nella prima versione di StellarForge. Clicca per selezionare/deselezionare.</p>
+
+<style>
+  .category-group { margin-bottom: 28px; }
+  .category-group h3 {
+    color: #7dd3fc;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(125,211,252,0.2);
+    padding-bottom: 6px;
+  }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 8px;
+  }
+  .cat-item {
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+  }
+  .cat-item:hover { background: rgba(125,211,252,0.1); border-color: rgba(125,211,252,0.3); }
+  .cat-item.selected { background: rgba(125,211,252,0.15); border-color: #7dd3fc; }
+  .cat-item .cat-name { font-weight: 600; color: #e2e8f0; }
+  .cat-item .cat-desc { color: #94a3b8; font-size: 0.8rem; margin-top: 2px; }
+  .cat-item .cat-folder { color: #64748b; font-size: 0.75rem; font-family: monospace; }
+  .select-controls { margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .select-btn {
+    padding: 6px 14px;
+    background: rgba(125,211,252,0.1);
+    border: 1px solid rgba(125,211,252,0.3);
+    border-radius: 6px;
+    color: #7dd3fc;
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+  .select-btn:hover { background: rgba(125,211,252,0.2); }
+  .counter {
+    position: fixed; bottom: 20px; right: 20px;
+    background: rgba(15,23,42,0.95); border: 1px solid #7dd3fc;
+    padding: 10px 18px; border-radius: 10px; color: #7dd3fc;
+    font-weight: 600; z-index: 100;
+  }
+</style>
+
+<div class="select-controls">
+  <button class="select-btn" onclick="selectGroup('all')">Seleziona Tutte</button>
+  <button class="select-btn" onclick="selectGroup('none')">Deseleziona Tutte</button>
+  <button class="select-btn" onclick="selectGroup('empire')">Empire Design</button>
+  <button class="select-btn" onclick="selectGroup('economy')">Economia</button>
+  <button class="select-btn" onclick="selectGroup('tech')">Tech & Tradizioni</button>
+  <button class="select-btn" onclick="selectGroup('military')">Militare</button>
+  <button class="select-btn" onclick="selectGroup('diplomacy')">Diplomazia</button>
+  <button class="select-btn" onclick="selectGroup('exploration')">Esplorazione</button>
+  <button class="select-btn" onclick="selectGroup('scripting')">Scripting</button>
+  <button class="select-btn" onclick="selectGroup('gfx')">Grafica & UI</button>
+</div>
+
+<div class="counter" id="counter">0 selezionate</div>
+
+<!-- EMPIRE DESIGN -->
+<div class="category-group">
+  <h3>Empire Design</h3>
+  <div class="cat-grid">
+    <div class="cat-item" data-group="empire" data-choice="governments" onclick="toggleCat(this)">
+      <div class="cat-name">Governments</div>
+      <div class="cat-desc">Tipi di governo</div>
+      <div class="cat-folder">common/governments/</div>
+    </div>
+    <div class="cat-item" data-group="empire" data-choice="authorities" onclick="toggleCat(this)">
+      <div class="cat-name">Authorities</div>
+      <div class="cat-desc">Democratico, Imperiale, Oligarchico, etc.</div>
+      <div class="cat-folder">common/governments/authorities/</div>
+    </div>
+    <div class="cat-item" data-group="empire" data-choice="civics" onclick="toggleCat(this)">
+      <div class="cat-name">Civics</div>
+      <div class="cat-desc">Civics dell'impero</div>
+      <div class="cat-folder">common/governments/civics/</div>
+    </div>
+    <div class="cat-item" data-group="empire" data-choice="origins" onclick="toggleCat(this)">
+      <div class="cat-name">Origins</div>
+      <div class="cat-desc">Origini dell'impero</div>
+      <div class="cat-folder">common/governments/civics/ (origins)</div>
+    </div>
+    <div class="cat-item" data-group="empire" data-choice="ethics" onclick="toggleCat(this)">
+      <div class="cat-name">Ethics</div>
+      <div class="cat-desc">Etiche (materialista, spiritualista, etc.)</div>
+      <div class="cat-folder">common/ethics/</div>
+    </div>
+    <div class="cat-item" data-group="empire" data-choice="species_classes" onclick="toggleCat(this)">
+      <div class="cat-name">Species Classes</div>
+      <div class="cat-desc">Classi di specie (mammalian, reptilian, etc.)</div>
+      <div class="cat-folder">common/species_classes/</div>
+    </div>
+    <div class="cat-item" data-group="empire" data-choice="traits" onclick="toggleCat(this)">
+      <div class="cat-name">Traits</div>
+      <div class="cat-desc">Tratti di specie</div>
+      <div class="cat-folder">common/traits/</div>
+    </div>
+    <div class="cat-item" data-group="empire" data-choice="species_rights" onclick="toggleCat(this)">
+      <div class="cat-name">Species Rights</div>
+      <div class="cat-desc">Diritti delle specie (cittadinanza, standard di vita)</div>
+      <div class="cat-folder">common/species_rights/</div>
+    </div>
+    <div class="cat-item" data-group="empire" data-choice="personalities" onclick="toggleCat(this)">
+      <div class="cat-name">AI Personalities</div>
+      <div class="cat-desc">Personalita' dell'AI</div>
+      <div class="cat-folder">common/personalities/</div>
+    </div>
+    <div class="cat-item" data-group="empire" data-choice="name_lists" onclick="toggleCat(this)">
+      <div class="cat-name">Name Lists</div>
+      <div class="cat-desc">Liste di nomi per specie</div>
+      <div class="cat-folder">common/name_lists/</div>
+    </div>
+    <div class="cat-item" data-group="empire" data-choice="prescripted_countries" onclick="toggleCat(this)">
+      <div class="cat-name">Prescripted Countries</div>
+      <div class="cat-desc">Imperi pre-configurati</div>
+      <div class="cat-folder">prescripted_countries/</div>
+    </div>
+  </div>
+</div>
+
+<!-- ECONOMY & PLANETS -->
+<div class="category-group">
+  <h3>Economia & Pianeti</h3>
+  <div class="cat-grid">
+    <div class="cat-item" data-group="economy" data-choice="buildings" onclick="toggleCat(this)">
+      <div class="cat-name">Buildings</div>
+      <div class="cat-desc">Edifici planetari</div>
+      <div class="cat-folder">common/buildings/</div>
+    </div>
+    <div class="cat-item" data-group="economy" data-choice="districts" onclick="toggleCat(this)">
+      <div class="cat-name">Districts</div>
+      <div class="cat-desc">Distretti planetari</div>
+      <div class="cat-folder">common/districts/</div>
+    </div>
+    <div class="cat-item" data-group="economy" data-choice="pop_jobs" onclick="toggleCat(this)">
+      <div class="cat-name">Pop Jobs</div>
+      <div class="cat-desc">Lavori per i pop</div>
+      <div class="cat-folder">common/pop_jobs/</div>
+    </div>
+    <div class="cat-item" data-group="economy" data-choice="planet_classes" onclick="toggleCat(this)">
+      <div class="cat-name">Planet Classes</div>
+      <div class="cat-desc">Tipi di pianeta</div>
+      <div class="cat-folder">common/planet_classes/</div>
+    </div>
+    <div class="cat-item" data-group="economy" data-choice="deposits" onclick="toggleCat(this)">
+      <div class="cat-name">Deposits</div>
+      <div class="cat-desc">Depositi/feature planetarie</div>
+      <div class="cat-folder">common/deposits/</div>
+    </div>
+    <div class="cat-item" data-group="economy" data-choice="decisions" onclick="toggleCat(this)">
+      <div class="cat-name">Decisions</div>
+      <div class="cat-desc">Decisioni planetarie</div>
+      <div class="cat-folder">common/decisions/</div>
+    </div>
+    <div class="cat-item" data-group="economy" data-choice="pop_categories" onclick="toggleCat(this)">
+      <div class="cat-name">Pop Categories</div>
+      <div class="cat-desc">Strati dei pop (ruler, specialist, worker)</div>
+      <div class="cat-folder">common/pop_categories/</div>
+    </div>
+    <div class="cat-item" data-group="economy" data-choice="economic_categories" onclick="toggleCat(this)">
+      <div class="cat-name">Economic Categories</div>
+      <div class="cat-desc">Categorie di risorse</div>
+      <div class="cat-folder">common/economic_categories/</div>
+    </div>
+    <div class="cat-item" data-group="economy" data-choice="trade_conversions" onclick="toggleCat(this)">
+      <div class="cat-name">Trade Conversions</div>
+      <div class="cat-desc">Conversioni valore commerciale</div>
+      <div class="cat-folder">common/trade_conversions/</div>
+    </div>
+    <div class="cat-item" data-group="economy" data-choice="terraform" onclick="toggleCat(this)">
+      <div class="cat-name">Terraform</div>
+      <div class="cat-desc">Link di terraformazione</div>
+      <div class="cat-folder">common/terraform/</div>
+    </div>
+  </div>
+</div>
+
+<!-- TECH & TRADITIONS -->
+<div class="category-group">
+  <h3>Tecnologia & Tradizioni</h3>
+  <div class="cat-grid">
+    <div class="cat-item" data-group="tech" data-choice="technology" onclick="toggleCat(this)">
+      <div class="cat-name">Technologies</div>
+      <div class="cat-desc">Albero tecnologico</div>
+      <div class="cat-folder">common/technology/</div>
+    </div>
+    <div class="cat-item" data-group="tech" data-choice="traditions" onclick="toggleCat(this)">
+      <div class="cat-name">Traditions</div>
+      <div class="cat-desc">Alberi delle tradizioni</div>
+      <div class="cat-folder">common/traditions/</div>
+    </div>
+    <div class="cat-item" data-group="tech" data-choice="ascension_perks" onclick="toggleCat(this)">
+      <div class="cat-name">Ascension Perks</div>
+      <div class="cat-desc">Perk di ascensione</div>
+      <div class="cat-folder">common/ascension_perks/</div>
+    </div>
+    <div class="cat-item" data-group="tech" data-choice="edicts" onclick="toggleCat(this)">
+      <div class="cat-name">Edicts</div>
+      <div class="cat-desc">Editti imperiali</div>
+      <div class="cat-folder">common/edicts/</div>
+    </div>
+    <div class="cat-item" data-group="tech" data-choice="policies" onclick="toggleCat(this)">
+      <div class="cat-name">Policies</div>
+      <div class="cat-desc">Politiche di governo</div>
+      <div class="cat-folder">common/policies/</div>
+    </div>
+    <div class="cat-item" data-group="tech" data-choice="agendas" onclick="toggleCat(this)">
+      <div class="cat-name">Agendas</div>
+      <div class="cat-desc">Agende dei leader/consiglieri</div>
+      <div class="cat-folder">common/agendas/</div>
+    </div>
+  </div>
+</div>
+
+<!-- MILITARY -->
+<div class="category-group">
+  <h3>Militare</h3>
+  <div class="cat-grid">
+    <div class="cat-item" data-group="military" data-choice="ship_sizes" onclick="toggleCat(this)">
+      <div class="cat-name">Ship Sizes</div>
+      <div class="cat-desc">Tipi di navi (corvette, destroyer, etc.)</div>
+      <div class="cat-folder">common/ship_sizes/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="component_templates" onclick="toggleCat(this)">
+      <div class="cat-name">Ship Components</div>
+      <div class="cat-desc">Componenti nave (armi, utility, etc.)</div>
+      <div class="cat-folder">common/component_templates/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="section_templates" onclick="toggleCat(this)">
+      <div class="cat-name">Section Templates</div>
+      <div class="cat-desc">Layout sezioni nave</div>
+      <div class="cat-folder">common/section_templates/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="armies" onclick="toggleCat(this)">
+      <div class="cat-name">Armies</div>
+      <div class="cat-desc">Tipi di esercito</div>
+      <div class="cat-folder">common/armies/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="war_goals" onclick="toggleCat(this)">
+      <div class="cat-name">War Goals</div>
+      <div class="cat-desc">Obiettivi di guerra</div>
+      <div class="cat-folder">common/war_goals/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="casus_belli" onclick="toggleCat(this)">
+      <div class="cat-name">Casus Belli</div>
+      <div class="cat-desc">Casus belli</div>
+      <div class="cat-folder">common/casus_belli/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="bombardment_stances" onclick="toggleCat(this)">
+      <div class="cat-name">Bombardment Stances</div>
+      <div class="cat-desc">Posizioni di bombardamento orbitale</div>
+      <div class="cat-folder">common/bombardment_stances/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="ship_behaviors" onclick="toggleCat(this)">
+      <div class="cat-name">Ship Behaviors</div>
+      <div class="cat-desc">Comportamenti AI delle navi</div>
+      <div class="cat-folder">common/ship_behaviors/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="global_ship_designs" onclick="toggleCat(this)">
+      <div class="cat-name">Global Ship Designs</div>
+      <div class="cat-desc">Design navi auto-generati</div>
+      <div class="cat-folder">common/global_ship_designs/</div>
+    </div>
+  </div>
+</div>
+
+<!-- STARBASES & MEGA -->
+<div class="category-group">
+  <h3>Basi Stellari & Megastrutture</h3>
+  <div class="cat-grid">
+    <div class="cat-item" data-group="military" data-choice="starbase_buildings" onclick="toggleCat(this)">
+      <div class="cat-name">Starbase Buildings</div>
+      <div class="cat-desc">Edifici delle basi stellari</div>
+      <div class="cat-folder">common/starbase_buildings/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="starbase_modules" onclick="toggleCat(this)">
+      <div class="cat-name">Starbase Modules</div>
+      <div class="cat-desc">Moduli delle basi stellari</div>
+      <div class="cat-folder">common/starbase_modules/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="megastructures" onclick="toggleCat(this)">
+      <div class="cat-name">Megastructures</div>
+      <div class="cat-desc">Megastrutture (Dyson Sphere, Ring World, etc.)</div>
+      <div class="cat-folder">common/megastructures/</div>
+    </div>
+    <div class="cat-item" data-group="military" data-choice="bypass" onclick="toggleCat(this)">
+      <div class="cat-name">Bypass</div>
+      <div class="cat-desc">Wormhole, gateway, L-gate</div>
+      <div class="cat-folder">common/bypass/</div>
+    </div>
+  </div>
+</div>
+
+<!-- DIPLOMACY -->
+<div class="category-group">
+  <h3>Diplomazia & Politica</h3>
+  <div class="cat-grid">
+    <div class="cat-item" data-group="diplomacy" data-choice="diplomatic_actions" onclick="toggleCat(this)">
+      <div class="cat-name">Diplomatic Actions</div>
+      <div class="cat-desc">Azioni diplomatiche</div>
+      <div class="cat-folder">common/diplomatic_actions/</div>
+    </div>
+    <div class="cat-item" data-group="diplomacy" data-choice="federation_types" onclick="toggleCat(this)">
+      <div class="cat-name">Federation Types</div>
+      <div class="cat-desc">Tipi di federazione</div>
+      <div class="cat-folder">common/federation_types/</div>
+    </div>
+    <div class="cat-item" data-group="diplomacy" data-choice="espionage" onclick="toggleCat(this)">
+      <div class="cat-name">Espionage Operations</div>
+      <div class="cat-desc">Operazioni di spionaggio</div>
+      <div class="cat-folder">common/espionage_operation_types/</div>
+    </div>
+    <div class="cat-item" data-group="diplomacy" data-choice="resolutions" onclick="toggleCat(this)">
+      <div class="cat-name">Galactic Resolutions</div>
+      <div class="cat-desc">Risoluzioni della comunita' galattica</div>
+      <div class="cat-folder">common/resolutions/</div>
+    </div>
+    <div class="cat-item" data-group="diplomacy" data-choice="opinion_modifiers" onclick="toggleCat(this)">
+      <div class="cat-name">Opinion Modifiers</div>
+      <div class="cat-desc">Modificatori di opinione tra imperi</div>
+      <div class="cat-folder">common/opinion_modifiers/</div>
+    </div>
+    <div class="cat-item" data-group="diplomacy" data-choice="pop_faction_types" onclick="toggleCat(this)">
+      <div class="cat-name">Pop Factions</div>
+      <div class="cat-desc">Tipi di fazione dei pop</div>
+      <div class="cat-folder">common/pop_faction_types/</div>
+    </div>
+    <div class="cat-item" data-group="diplomacy" data-choice="attitudes" onclick="toggleCat(this)">
+      <div class="cat-name">AI Attitudes</div>
+      <div class="cat-desc">Atteggiamenti dell'AI verso il giocatore</div>
+      <div class="cat-folder">common/attitudes/</div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPLORATION -->
+<div class="category-group">
+  <h3>Esplorazione & Eventi</h3>
+  <div class="cat-grid">
+    <div class="cat-item" data-group="exploration" data-choice="events" onclick="toggleCat(this)">
+      <div class="cat-name">Events</div>
+      <div class="cat-desc">Eventi e catene di eventi</div>
+      <div class="cat-folder">events/</div>
+    </div>
+    <div class="cat-item" data-group="exploration" data-choice="anomalies" onclick="toggleCat(this)">
+      <div class="cat-name">Anomalies</div>
+      <div class="cat-desc">Anomalie spaziali</div>
+      <div class="cat-folder">common/anomalies/</div>
+    </div>
+    <div class="cat-item" data-group="exploration" data-choice="archaeological_sites" onclick="toggleCat(this)">
+      <div class="cat-name">Archaeological Sites</div>
+      <div class="cat-desc">Siti archeologici</div>
+      <div class="cat-folder">common/archaeological_site_types/</div>
+    </div>
+    <div class="cat-item" data-group="exploration" data-choice="relics" onclick="toggleCat(this)">
+      <div class="cat-name">Relics</div>
+      <div class="cat-desc">Reliquie</div>
+      <div class="cat-folder">common/relics/</div>
+    </div>
+    <div class="cat-item" data-group="exploration" data-choice="on_actions" onclick="toggleCat(this)">
+      <div class="cat-name">On Actions</div>
+      <div class="cat-desc">Hook per eventi di gioco (on_game_start, etc.)</div>
+      <div class="cat-folder">common/on_actions/</div>
+    </div>
+    <div class="cat-item" data-group="exploration" data-choice="solar_system_initializers" onclick="toggleCat(this)">
+      <div class="cat-name">Solar System Initializers</div>
+      <div class="cat-desc">Generazione sistemi stellari custom</div>
+      <div class="cat-folder">common/solar_system_initializers/</div>
+    </div>
+    <div class="cat-item" data-group="exploration" data-choice="star_classes" onclick="toggleCat(this)">
+      <div class="cat-name">Star Classes</div>
+      <div class="cat-desc">Tipi di stella</div>
+      <div class="cat-folder">common/star_classes/</div>
+    </div>
+    <div class="cat-item" data-group="exploration" data-choice="ambient_objects" onclick="toggleCat(this)">
+      <div class="cat-name">Ambient Objects</div>
+      <div class="cat-desc">Oggetti spaziali ambientali</div>
+      <div class="cat-folder">common/ambient_objects/</div>
+    </div>
+    <div class="cat-item" data-group="exploration" data-choice="leader_classes" onclick="toggleCat(this)">
+      <div class="cat-name">Leader Classes</div>
+      <div class="cat-desc">Classi di leader</div>
+      <div class="cat-folder">common/leader_classes/</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPTING -->
+<div class="category-group">
+  <h3>Scripting & Infrastruttura</h3>
+  <div class="cat-grid">
+    <div class="cat-item" data-group="scripting" data-choice="scripted_effects" onclick="toggleCat(this)">
+      <div class="cat-name">Scripted Effects</div>
+      <div class="cat-desc">Blocchi di effetti riutilizzabili</div>
+      <div class="cat-folder">common/scripted_effects/</div>
+    </div>
+    <div class="cat-item" data-group="scripting" data-choice="scripted_triggers" onclick="toggleCat(this)">
+      <div class="cat-name">Scripted Triggers</div>
+      <div class="cat-desc">Condizioni riutilizzabili</div>
+      <div class="cat-folder">common/scripted_triggers/</div>
+    </div>
+    <div class="cat-item" data-group="scripting" data-choice="scripted_modifiers" onclick="toggleCat(this)">
+      <div class="cat-name">Scripted Modifiers</div>
+      <div class="cat-desc">Modificatori custom</div>
+      <div class="cat-folder">common/scripted_modifiers/</div>
+    </div>
+    <div class="cat-item" data-group="scripting" data-choice="scripted_variables" onclick="toggleCat(this)">
+      <div class="cat-name">Scripted Variables</div>
+      <div class="cat-desc">Variabili di script</div>
+      <div class="cat-folder">common/scripted_variables/</div>
+    </div>
+    <div class="cat-item" data-group="scripting" data-choice="script_values" onclick="toggleCat(this)">
+      <div class="cat-name">Script Values</div>
+      <div class="cat-desc">Calcoli di valori dinamici</div>
+      <div class="cat-folder">common/script_values/</div>
+    </div>
+    <div class="cat-item" data-group="scripting" data-choice="inline_scripts" onclick="toggleCat(this)">
+      <div class="cat-name">Inline Scripts</div>
+      <div class="cat-desc">Frammenti di script riutilizzabili</div>
+      <div class="cat-folder">common/inline_scripts/</div>
+    </div>
+    <div class="cat-item" data-group="scripting" data-choice="defines" onclick="toggleCat(this)">
+      <div class="cat-name">Defines</div>
+      <div class="cat-desc">Override di valori hardcoded del gioco</div>
+      <div class="cat-folder">common/defines/</div>
+    </div>
+    <div class="cat-item" data-group="scripting" data-choice="static_modifiers" onclick="toggleCat(this)">
+      <div class="cat-name">Static Modifiers</div>
+      <div class="cat-desc">Definizioni di modificatori statici</div>
+      <div class="cat-folder">common/static_modifiers/</div>
+    </div>
+    <div class="cat-item" data-group="scripting" data-choice="random_names" onclick="toggleCat(this)">
+      <div class="cat-name">Random Names</div>
+      <div class="cat-desc">Liste di nomi casuali</div>
+      <div class="cat-folder">common/random_names/</div>
+    </div>
+  </div>
+</div>
+
+<!-- GFX & UI -->
+<div class="category-group">
+  <h3>Grafica & Interfaccia</h3>
+  <div class="cat-grid">
+    <div class="cat-item" data-group="gfx" data-choice="gfx_icons" onclick="toggleCat(this)">
+      <div class="cat-name">Icons</div>
+      <div class="cat-desc">Icone per tratti, tech, civics, etc. (DDS)</div>
+      <div class="cat-folder">gfx/interface/icons/</div>
+    </div>
+    <div class="cat-item" data-group="gfx" data-choice="gfx_event_pictures" onclick="toggleCat(this)">
+      <div class="cat-name">Event Pictures</div>
+      <div class="cat-desc">Immagini degli eventi</div>
+      <div class="cat-folder">gfx/event_pictures/</div>
+    </div>
+    <div class="cat-item" data-group="gfx" data-choice="gfx_flags" onclick="toggleCat(this)">
+      <div class="cat-name">Empire Flags</div>
+      <div class="cat-desc">Componenti bandiere impero</div>
+      <div class="cat-folder">gfx/flags/</div>
+    </div>
+    <div class="cat-item" data-group="gfx" data-choice="gfx_loading" onclick="toggleCat(this)">
+      <div class="cat-name">Loading Screens</div>
+      <div class="cat-desc">Schermate di caricamento</div>
+      <div class="cat-folder">gfx/loadingscreens/</div>
+    </div>
+    <div class="cat-item" data-group="gfx" data-choice="interface_gui" onclick="toggleCat(this)">
+      <div class="cat-name">GUI Files</div>
+      <div class="cat-desc">Layout dell'interfaccia (.gui)</div>
+      <div class="cat-folder">interface/</div>
+    </div>
+    <div class="cat-item" data-group="gfx" data-choice="interface_gfx" onclick="toggleCat(this)">
+      <div class="cat-name">Sprite Libraries</div>
+      <div class="cat-desc">Definizioni sprite (.gfx)</div>
+      <div class="cat-folder">interface/ (.gfx files)</div>
+    </div>
+    <div class="cat-item" data-group="gfx" data-choice="music" onclick="toggleCat(this)">
+      <div class="cat-name">Music & Sound</div>
+      <div class="cat-desc">Musica e suoni custom</div>
+      <div class="cat-folder">music/ & sound/</div>
+    </div>
+  </div>
+</div>
+
+<!-- LOCALISATION -->
+<div class="category-group">
+  <h3>Localizzazione</h3>
+  <div class="cat-grid">
+    <div class="cat-item" data-group="exploration" data-choice="localisation" onclick="toggleCat(this)">
+      <div class="cat-name">Localisation</div>
+      <div class="cat-desc">File di testo multilingua (.yml)</div>
+      <div class="cat-folder">localisation/</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const selected = new Set();
+
+  function toggleCat(el) {
+    const choice = el.dataset.choice;
+    if (selected.has(choice)) {
+      selected.delete(choice);
+      el.classList.remove('selected');
+    } else {
+      selected.add(choice);
+      el.classList.add('selected');
+    }
+    updateCounter();
+    // Record event for the brainstorming system
+    if (typeof recordEvent === 'function') {
+      recordEvent('click', choice, el.querySelector('.cat-name').textContent);
+    }
+  }
+
+  function selectGroup(group) {
+    const items = document.querySelectorAll('.cat-item');
+    if (group === 'all') {
+      items.forEach(el => { selected.add(el.dataset.choice); el.classList.add('selected'); });
+    } else if (group === 'none') {
+      items.forEach(el => { selected.delete(el.dataset.choice); el.classList.remove('selected'); });
+    } else {
+      items.forEach(el => {
+        if (el.dataset.group === group) {
+          selected.add(el.dataset.choice);
+          el.classList.add('selected');
+        }
+      });
+    }
+    updateCounter();
+  }
+
+  function updateCounter() {
+    document.getElementById('counter').textContent = selected.size + ' selezionate';
+  }
+</script>
