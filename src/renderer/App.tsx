@@ -7,10 +7,37 @@ import { ToastProvider } from './components/common/Toast';
 import { useProjectStore } from './stores/projectStore';
 import './i18n';
 
+const isElectron = typeof window !== 'undefined' && !!window.stellarforge;
+
+function createDemoProject(): import('@shared/types/project').Project {
+  return {
+    metadata: {
+      name: 'Demo Mod',
+      internalName: 'demo_mod',
+      version: '1.0.0',
+      stellarisVersion: '3.x',
+      tags: ['Gameplay'],
+      description: 'A demo project for previewing StellarForge',
+      author: 'StellarForge',
+      createdAt: new Date().toISOString(),
+      lastModified: new Date().toISOString(),
+      stellarforgeVersion: '0.1.0',
+    },
+    items: {},
+    localisation: {},
+    assets: { icons: [], eventPictures: [], portraits: [], planetTextures: [], flags: [] },
+  };
+}
+
 export default function App() {
   const project = useProjectStore((s) => s.project);
 
   const handleNew = async () => {
+    if (!isElectron) {
+      // Dev mode: create in-memory demo project
+      useProjectStore.getState().setProject(createDemoProject());
+      return;
+    }
     const dir = await window.stellarforge.project.pickDirectory();
     if (!dir) return;
     const result = await window.stellarforge.project.create(dir, {
@@ -26,6 +53,10 @@ export default function App() {
   };
 
   const handleOpen = async () => {
+    if (!isElectron) {
+      useProjectStore.getState().setProject(createDemoProject());
+      return;
+    }
     const path = await window.stellarforge.project.pickDirectory();
     if (!path) return;
     const result = await window.stellarforge.project.load(path);
@@ -36,6 +67,10 @@ export default function App() {
   };
 
   const handleOpenRecent = async (path: string) => {
+    if (!isElectron) {
+      useProjectStore.getState().setProject(createDemoProject());
+      return;
+    }
     const result = await window.stellarforge.project.load(path);
     if (result) {
       useProjectStore.getState().setProject(result);
