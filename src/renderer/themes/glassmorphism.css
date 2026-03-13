@@ -1,0 +1,12 @@
+:root {
+  --sf-bg-primary: #0f0f23;
+  --sf-bg-secondary: rgba(255, 255, 255, 0.05);
+  --sf-bg-card: rgba(255, 255, 255, 0.08);
+  --sf-border: rgba(255, 255, 255, 0.12);
+  --sf-border-active: rgba(255, 255, 255, 0.25);
+  --sf-accent: #7c3aed;
+  --sf-accent-glow: rgba(124, 58, 237, 0.15);
+  --sf-text-primary: #f0f0f5;
+  --sf-text-secondary: rgba(240, 240, 245, 0.5);
+  --sf-text-muted: rgba(240, 240, 245, 0.3);
+}
