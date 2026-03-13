@@ -24,8 +24,10 @@
     "@reactflow/core": "^11.11.4",
     "@reactflow/minimap": "^11.7.14",
     "@tailwindcss/vite": "^4.2.1",
+    "archiver": "^7.0.1",
     "better-sqlite3": "^12.6.2",
     "electron-store": "^11.0.2",
+    "extract-zip": "^2.0.1",
     "framer-motion": "^12.36.0",
     "i18next": "^25.8.18",
     "monaco-editor": "^0.55.1",
@@ -41,6 +43,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
+    "@types/archiver": "^7.0.0",
     "@types/better-sqlite3": "^7.6.13",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
