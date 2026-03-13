@@ -1,0 +1,45 @@
+// src/shared/schemas/eventSchema.ts
+import type { CategorySchema } from '../types/categories';
+
+export const eventSchema: CategorySchema = {
+  category: 'events',
+  gameFolder: 'events/',
+  outputPath: 'events/',
+  displayName: { en: 'Events', it: 'Eventi' },
+  fields: [
+    { key: 'namespace', label: { en: 'Namespace', it: 'Namespace' }, type: 'text', required: true, group: 'general' },
+    { key: 'id', label: { en: 'Event ID', it: 'ID Evento' }, type: 'text', required: true, group: 'general',
+      tooltip: { en: 'Format: namespace.number', it: 'Formato: namespace.numero' } },
+    { key: 'type', label: { en: 'Event Type', it: 'Tipo Evento' }, type: 'select', required: true, group: 'general',
+      options: [
+        { value: 'country_event', label: 'Country Event' },
+        { value: 'planet_event', label: 'Planet Event' },
+        { value: 'fleet_event', label: 'Fleet Event' },
+        { value: 'ship_event', label: 'Ship Event' },
+        { value: 'pop_event', label: 'Pop Event' },
+        { value: 'observer_event', label: 'Observer Event' },
+      ] },
+    { key: 'title', label: { en: 'Title Key', it: 'Chiave Titolo' }, type: 'text', required: true, group: 'general' },
+    { key: 'desc', label: { en: 'Description Key', it: 'Chiave Descrizione' }, type: 'text', required: true, group: 'general' },
+    { key: 'picture', label: { en: 'Event Picture', it: 'Immagine Evento' }, type: 'icon', required: false, group: 'general' },
+    { key: 'is_triggered_only', label: { en: 'Triggered Only', it: 'Solo Triggherato' }, type: 'boolean',
+      required: false, default: true, group: 'trigger' },
+    { key: 'hide_window', label: { en: 'Hide Window', it: 'Nascondi Finestra' }, type: 'boolean',
+      required: false, default: false, group: 'general' },
+    { key: 'fire_only_once', label: { en: 'Fire Only Once', it: 'Solo Una Volta' }, type: 'boolean',
+      required: false, default: false, group: 'trigger' },
+    { key: 'trigger', label: { en: 'Trigger', it: 'Condizione' }, type: 'trigger-block', required: false, group: 'trigger' },
+    { key: 'mean_time_to_happen', label: { en: 'Mean Time to Happen', it: 'Tempo Medio' }, type: 'trigger-block',
+      required: false, group: 'trigger',
+      condition: { field: 'is_triggered_only', value: false } },
+    { key: 'immediate', label: { en: 'Immediate Effects', it: 'Effetti Immediati' }, type: 'effect-block',
+      required: false, group: 'effects' },
+    { key: 'options', label: { en: 'Options', it: 'Opzioni' }, type: 'event-options', required: false, group: 'options' },
+    { key: 'after', label: { en: 'After Effects', it: 'Effetti Dopo Scelta' }, type: 'effect-block',
+      required: false, group: 'effects' },
+  ],
+  validators: [
+    { rule: 'localisation_key_exists', params: { fields: ['title', 'desc'] } },
+    { rule: 'event_has_options_or_hidden', params: {} },
+  ],
+};
