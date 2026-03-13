@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+:root {
+  --sf-bg-primary: #050810;
+  --sf-bg-secondary: #0a0f1e;
+  --sf-bg-card: rgba(0, 20, 50, 0.3);
+  --sf-border: rgba(0, 200, 255, 0.08);
+  --sf-border-active: rgba(0, 200, 255, 0.25);
+  --sf-accent: #22d3ee;
+  --sf-accent-glow: rgba(0, 200, 255, 0.15);
+  --sf-text-primary: #e0f2fe;
+  --sf-text-secondary: rgba(150, 200, 255, 0.4);
+  --sf-text-muted: rgba(0, 200, 255, 0.3);
+  --sf-font-display: 'Orbitron', sans-serif;
+  --sf-font-body: 'Inter', sans-serif;
+  --sf-font-mono: 'JetBrains Mono', monospace;
+  --sf-radius-sm: 6px;
+  --sf-radius-md: 10px;
+  --sf-radius-lg: 14px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--sf-bg-primary);
+  color: var(--sf-text-primary);
+  font-family: var(--sf-font-body);
+  overflow: hidden;
+  -webkit-app-region: no-drag;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sf-border-active);
+  border-radius: 3px;
+}
