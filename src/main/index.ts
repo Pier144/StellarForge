@@ -1,5 +1,8 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
+import { registerProjectHandlers } from './ipc/projectHandler';
+import { registerGameScanHandlers } from './ipc/gameScanHandler';
+import { registerFileOpsHandlers } from './ipc/fileOps';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -41,7 +44,12 @@ ipcMain.handle('window:maximize', () => {
 });
 ipcMain.handle('window:close', () => mainWindow?.close());
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  registerProjectHandlers();
+  registerGameScanHandlers();
+  registerFileOpsHandlers();
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
