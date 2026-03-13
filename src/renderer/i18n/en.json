@@ -1,0 +1,57 @@
+{
+  "app": { "title": "StellarForge", "version": "v{{version}}", "newProject": "New Project", "openProject": "Open Project", "importProject": "Import Project", "recentProjects": "Recent Projects", "noRecentProjects": "No recent projects" },
+  "sidebar": {
+    "empireDesign": "Empire Design", "economy": "Economy & Planets", "tech": "Tech & Traditions",
+    "military": "Military", "exploration": "Exploration & Events", "scripting": "Scripting",
+    "graphics": "Graphics & UI", "localisation": "Localisation"
+  },
+  "categories": {
+    "governments": "Governments", "authorities": "Authorities", "civics": "Civics", "origins": "Origins",
+    "ethics": "Ethics", "species_classes": "Species Classes", "traits": "Traits", "species_rights": "Species Rights",
+    "personalities": "AI Personalities", "name_lists": "Name Lists", "prescripted_countries": "Prescripted Countries",
+    "buildings": "Buildings", "districts": "Districts", "pop_jobs": "Pop Jobs", "planet_classes": "Planet Classes",
+    "deposits": "Deposits", "decisions": "Decisions", "pop_categories": "Pop Categories",
+    "economic_categories": "Economic Categories", "trade_conversions": "Trade Conversions", "terraform": "Terraform",
+    "technologies": "Technologies", "traditions": "Traditions", "ascension_perks": "Ascension Perks",
+    "edicts": "Edicts", "policies": "Policies", "agendas": "Agendas",
+    "ship_sizes": "Ship Sizes", "component_templates": "Component Templates", "section_templates": "Section Templates",
+    "armies": "Armies", "war_goals": "War Goals", "casus_belli": "Casus Belli",
+    "bombardment_stances": "Bombardment Stances", "ship_behaviors": "Ship Behaviors", "global_ship_designs": "Ship Designs",
+    "events": "Events", "anomalies": "Anomalies", "archaeological_sites": "Archaeological Sites",
+    "relics": "Relics", "on_actions": "On Actions", "solar_system_initializers": "System Initializers",
+    "star_classes": "Star Classes", "ambient_objects": "Ambient Objects", "leader_classes": "Leader Classes",
+    "scripted_effects": "Scripted Effects", "scripted_triggers": "Scripted Triggers",
+    "scripted_modifiers": "Scripted Modifiers", "scripted_variables": "Scripted Variables",
+    "script_values": "Script Values", "inline_scripts": "Inline Scripts", "defines": "Defines",
+    "static_modifiers": "Static Modifiers", "random_names": "Random Names",
+    "icons": "Icons", "event_pictures": "Event Pictures", "empire_flags": "Empire Flags",
+    "loading_screens": "Loading Screens", "gui_files": "GUI Files", "sprite_libraries": "Sprite Libraries",
+    "music_sound": "Music & Sound"
+  },
+  "editors": {
+    "newItem": "New {{category}}", "deleteItem": "Delete", "duplicateItem": "Duplicate",
+    "unsavedChanges": "Unsaved changes", "emptyState": "Create your first {{category}}",
+    "general": "General", "conditions": "Conditions", "effects": "Effects", "requirements": "Requirements",
+    "restrictions": "Restrictions", "costs": "Costs", "ai": "AI"
+  },
+  "actions": {
+    "save": "Save", "cancel": "Cancel", "delete": "Delete", "confirm": "Confirm",
+    "export": "Export Mod", "exportLocal": "Export Locally", "exportWorkshop": "Export & Publish",
+    "validate": "Validate", "undo": "Undo", "redo": "Redo", "search": "Search"
+  },
+  "validation": {
+    "requiredField": "This field is required",
+    "invalidReference": "Referenced {{type}} \"{{key}}\" does not exist",
+    "syntaxError": "Syntax error at line {{line}}: {{message}}"
+  },
+  "settings": {
+    "title": "Settings", "gamePath": "Stellaris Game Path", "language": "Language",
+    "theme": "Theme", "codePanel": "Code Panel", "autoSave": "Auto-save Interval",
+    "selectGamePath": "Select Game Directory"
+  },
+  "export": {
+    "title": "Export Mod", "validating": "Validating...", "exporting": "Exporting...",
+    "success": "Mod exported successfully!", "errors": "{{count}} errors found",
+    "warnings": "{{count}} warnings", "filesGenerated": "{{count}} files generated"
+  }
+}

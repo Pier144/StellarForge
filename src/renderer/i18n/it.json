@@ -1,0 +1,57 @@
+{
+  "app": { "title": "StellarForge", "version": "v{{version}}", "newProject": "Nuovo Progetto", "openProject": "Apri Progetto", "importProject": "Importa Progetto", "recentProjects": "Progetti Recenti", "noRecentProjects": "Nessun progetto recente" },
+  "sidebar": {
+    "empireDesign": "Progettazione Impero", "economy": "Economia & Pianeti", "tech": "Tecnologia & Tradizioni",
+    "military": "Militare", "exploration": "Esplorazione & Eventi", "scripting": "Scripting",
+    "graphics": "Grafica & UI", "localisation": "Localizzazione"
+  },
+  "categories": {
+    "governments": "Governi", "authorities": "Autorit\u00e0", "civics": "Aspetti Civici", "origins": "Origini",
+    "ethics": "Etiche", "species_classes": "Classi di Specie", "traits": "Tratti", "species_rights": "Diritti delle Specie",
+    "personalities": "Personalit\u00e0 IA", "name_lists": "Liste di Nomi", "prescripted_countries": "Paesi Prescritti",
+    "buildings": "Edifici", "districts": "Distretti", "pop_jobs": "Lavori dei Pop", "planet_classes": "Classi di Pianeti",
+    "deposits": "Depositi", "decisions": "Decisioni", "pop_categories": "Categorie dei Pop",
+    "economic_categories": "Categorie Economiche", "trade_conversions": "Conversioni Commerciali", "terraform": "Terraformazione",
+    "technologies": "Tecnologie", "traditions": "Tradizioni", "ascension_perks": "Vantaggi di Ascensione",
+    "edicts": "Editti", "policies": "Politiche", "agendas": "Agende",
+    "ship_sizes": "Dimensioni Navi", "component_templates": "Modelli di Componenti", "section_templates": "Modelli di Sezione",
+    "armies": "Eserciti", "war_goals": "Obiettivi di Guerra", "casus_belli": "Casus Belli",
+    "bombardment_stances": "Posture di Bombardamento", "ship_behaviors": "Comportamenti Navi", "global_ship_designs": "Progetti Navi",
+    "events": "Eventi", "anomalies": "Anomalie", "archaeological_sites": "Siti Archeologici",
+    "relics": "Reliquie", "on_actions": "Su Azioni", "solar_system_initializers": "Inizializzatori di Sistema",
+    "star_classes": "Classi di Stelle", "ambient_objects": "Oggetti Ambientali", "leader_classes": "Classi di Leader",
+    "scripted_effects": "Effetti con Script", "scripted_triggers": "Trigger con Script",
+    "scripted_modifiers": "Modificatori con Script", "scripted_variables": "Variabili con Script",
+    "script_values": "Valori Script", "inline_scripts": "Script Inline", "defines": "Definizioni",
+    "static_modifiers": "Modificatori Statici", "random_names": "Nomi Casuali",
+    "icons": "Icone", "event_pictures": "Immagini Eventi", "empire_flags": "Bandiere Impero",
+    "loading_screens": "Schermate di Caricamento", "gui_files": "File GUI", "sprite_libraries": "Librerie Sprite",
+    "music_sound": "Musica & Suoni"
+  },
+  "editors": {
+    "newItem": "Nuovo/a {{category}}", "deleteItem": "Elimina", "duplicateItem": "Duplica",
+    "unsavedChanges": "Modifiche non salvate", "emptyState": "Crea il tuo primo/a {{category}}",
+    "general": "Generale", "conditions": "Condizioni", "effects": "Effetti", "requirements": "Requisiti",
+    "restrictions": "Restrizioni", "costs": "Costi", "ai": "IA"
+  },
+  "actions": {
+    "save": "Salva", "cancel": "Annulla", "delete": "Elimina", "confirm": "Conferma",
+    "export": "Esporta Mod", "exportLocal": "Esporta Localmente", "exportWorkshop": "Esporta & Pubblica",
+    "validate": "Valida", "undo": "Annulla", "redo": "Ripeti", "search": "Cerca"
+  },
+  "validation": {
+    "requiredField": "Questo campo \u00e8 obbligatorio",
+    "invalidReference": "Il {{type}} referenziato \"{{key}}\" non esiste",
+    "syntaxError": "Errore di sintassi alla riga {{line}}: {{message}}"
+  },
+  "settings": {
+    "title": "Impostazioni", "gamePath": "Percorso Gioco Stellaris", "language": "Lingua",
+    "theme": "Tema", "codePanel": "Pannello Codice", "autoSave": "Intervallo Auto-salvataggio",
+    "selectGamePath": "Seleziona Directory del Gioco"
+  },
+  "export": {
+    "title": "Esporta Mod", "validating": "Validazione in corso...", "exporting": "Esportazione in corso...",
+    "success": "Mod esportata con successo!", "errors": "{{count}} errori trovati",
+    "warnings": "{{count}} avvisi", "filesGenerated": "{{count}} file generati"
+  }
+}
